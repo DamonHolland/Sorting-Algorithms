@@ -2,11 +2,12 @@ from graphics import *
 from Data import Data
 import Bogosort
 import SelectionSort
+import BubbleSort
 
 def main():
     # Window Settings
-    width = 640
-    height = 640
+    width = 1280
+    height = 1280
 
     #Sorting Settings - Delay in ms
     data_size = 64
@@ -24,10 +25,12 @@ def main():
     # 6 - Merge Sort
     # 7 - Bucket Sort
     # 8 - Radix Sort
-    algorithm_selection = 1
+    algorithm_selection = 2
 
     if algorithm_selection == 1:
         algorithm = SelectionSort
+    elif algorithm_selection == 2:
+        algorithm = BubbleSort
     else:
         algorithm = Bogosort
 
