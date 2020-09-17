@@ -3,6 +3,7 @@ from Data import Data
 import Bogosort
 import SelectionSort
 import BubbleSort
+import InsertionSort
 
 def main():
     # Window Settings
@@ -25,12 +26,14 @@ def main():
     # 6 - Merge Sort
     # 7 - Bucket Sort
     # 8 - Radix Sort
-    algorithm_selection = 2
+    algorithm_selection = 3
 
     if algorithm_selection == 1:
         algorithm = SelectionSort
     elif algorithm_selection == 2:
         algorithm = BubbleSort
+    elif algorithm_selection == 3:
+        algorithm = InsertionSort
     else:
         algorithm = Bogosort
 
