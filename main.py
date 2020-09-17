@@ -9,7 +9,7 @@ import QuickSort
 
 def main():
     #Data Settings
-    data_size = 100
+    data_size = 256
 
     #Visual Settings - Delay in ms
     show_visuals = True
@@ -29,7 +29,7 @@ def main():
     # 6 - Merge Sort
     # 7 - Bucket Sort
     # 8 - Radix Sort
-    algorithm_selection = 4
+    algorithm_selection = 5
 
     if algorithm_selection == 1:
         algorithm = BubbleSort
