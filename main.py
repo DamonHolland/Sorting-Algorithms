@@ -9,7 +9,7 @@ import QuickSort
 
 def main():
     #Data Settings
-    data_size = 256
+    data_size = 640
 
     #Visual Settings - Delay in ms
     show_visuals = True

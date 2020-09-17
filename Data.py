@@ -23,18 +23,18 @@ class Data:
                 self.data.append([value, rect])
             else:
                 self.data.append([value])
-        self.shuffle()
+        self.shuffle(skip_delay=True)
         if show_visuals:
             self.draw_data()
 
-    def shuffle(self):
+    def shuffle(self, skip_delay=False):
         n = len(self.data) - 1
         while n > 0:
             rand = random.randint(0, n - 1)
-            self.swap(n, rand)
+            self.swap(n, rand, skip_delay)
             n = n - 1
 
-    def swap(self, n, m):
+    def swap(self, n, m, skip_delay=False):
         # Swap Data
         temp = self.data[m]
         self.data[m] = self.data[n]
@@ -42,11 +42,14 @@ class Data:
         # Show Visual Change
         if self.show_visuals:
             swap_dx = self.data[m][1].getP1().x - self.data[n][1].getP1().x
-            self.data[n][1].move(swap_dx, 0)
-            self.data[m][1].move(-swap_dx, 0)
+            num_transitions = 10
             self.data[n][1].setFill('blue')
             self.data[m][1].setFill('blue')
-            time.sleep(self.swap_delay / 1000.0)
+            for i in range(num_transitions):
+                self.data[n][1].move(swap_dx / num_transitions, 0)
+                self.data[m][1].move(-swap_dx / num_transitions, 0)
+                if not skip_delay:
+                    time.sleep(self.swap_delay / 1000.0 / num_transitions)
             self.data[n][1].setFill('white')
             self.data[m][1].setFill('white')
 
