@@ -3,11 +3,12 @@ from graphics import *
 
 
 class Data:
-    def __init__(self, size, window, swap_delay, compare_delay):
+    def __init__(self, size, window, swap_delay, compare_delay, access_delay):
         self.window = window
         self.data = []
         self.swap_delay = swap_delay
         self.compare_delay = compare_delay
+        self.access_delay = access_delay
         self.size = size
         for i in range(size):
             value = i + 1
@@ -54,6 +55,13 @@ class Data:
         self.data[n][1].setFill('white')
         self.data[m][1].setFill('white')
         return b_is_less
+
+    def get_value(self, i):
+        # Show Visual Access
+        self.data[i][1].setFill('red')
+        time.sleep(self.access_delay / 1000.0)
+        self.data[i][1].setFill('white')
+        return self.data[i][0]
 
     def draw_data(self):
         for i in range(len(self.data)):
