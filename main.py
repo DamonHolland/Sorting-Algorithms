@@ -6,10 +6,11 @@ import BubbleSort
 import InsertionSort
 import HeapSort
 import QuickSort
+import MergeSort
 
 def main():
     #Data Settings
-    data_size = 640
+    data_size = 256
 
     #Visual Settings - Delay in ms
     show_visuals = True
@@ -17,6 +18,7 @@ def main():
     window_height = 1280
     swap_delay = 0
     compare_delay = 0
+    override_delay = 0
     access_delay = 0
 
     #Select Algorithm
@@ -41,6 +43,8 @@ def main():
         algorithm = HeapSort
     elif algorithm_selection == 5:
         algorithm = QuickSort
+    elif algorithm_selection == 6:
+        algorithm = MergeSort
     else:
         algorithm = Bogosort
 
@@ -51,7 +55,7 @@ def main():
     else:
         window = 0
 
-    data = Data(data_size, window, swap_delay, compare_delay, access_delay, show_visuals)
+    data = Data(data_size, window, swap_delay, compare_delay, override_delay, access_delay, show_visuals)
 
     timer = time.time()
 

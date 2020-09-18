@@ -3,11 +3,12 @@ from graphics import *
 
 
 class Data:
-    def __init__(self, size, window, swap_delay, compare_delay, access_delay, show_visuals):
+    def __init__(self, size, window, swap_delay, compare_delay, override_delay, access_delay, show_visuals):
         self.window = window
         self.data = []
         self.swap_delay = swap_delay
         self.compare_delay = compare_delay
+        self.override_delay = override_delay
         self.access_delay = access_delay
         self.size = size
         self.show_visuals = show_visuals
@@ -53,6 +54,22 @@ class Data:
             self.data[n][1].setFill('white')
             self.data[m][1].setFill('white')
 
+    def override(self, i, new_value):
+        if self.show_visuals:
+            self.data[i][1].setFill('red')
+            time.sleep(self.override_delay / 1000.0)
+            self.data[i][1].undraw()
+            bl_x = i * (self.window.getWidth() / self.size)
+            bl_y = self.window.getHeight()
+            tr_x = (i + 1) * (self.window.getWidth() / self.size)
+            tr_y = self.window.getHeight() - (new_value * (self.window.getWidth() / self.size))
+            rect = Rectangle(Point(bl_x, bl_y), Point(tr_x, tr_y))
+            rect.setFill('white')
+            self.data[i] = ([new_value + 1, rect])
+            self.data[i][1].draw(self.window)
+        else:
+            self.data[i] = ([new_value + 1])
+
     def compare(self, n, m):
         b_is_less = False
         if self.data[n][0] < self.data[m][0]:
@@ -69,7 +86,7 @@ class Data:
     def get_value(self, i):
         # Show Visual Access
         if self.show_visuals:
-            self.data[i][1].setFill('red')
+            self.data[i][1].setFill('purple')
             time.sleep(self.access_delay / 1000.0)
             self.data[i][1].setFill('white')
         return self.data[i][0]
@@ -77,3 +94,4 @@ class Data:
     def draw_data(self):
         for i in range(len(self.data)):
             self.data[i][1].draw(self.window)
+
