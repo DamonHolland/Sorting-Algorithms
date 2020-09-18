@@ -31,7 +31,7 @@ def main():
     # 6 - Merge Sort
     # 7 - Bucket Sort
     # 8 - Radix Sort
-    algorithm_selection = 5
+    algorithm_selection = 6
 
     if algorithm_selection == 1:
         algorithm = BubbleSort
@@ -48,9 +48,8 @@ def main():
     else:
         algorithm = Bogosort
 
-
     if show_visuals:
-        window = GraphWin("Algorithms", window_width, window_height)
+        window = GraphWin("Sorting Algorithms", window_width, window_height)
         window.setBackground('black')
     else:
         window = 0

@@ -25,6 +25,7 @@ def merge_sort(data, low, high):
             right.pop(0)
         for i in range(len(new_values)):
             data.override(low + i, new_values[i])
-        return new_values
     else:
-        return [data.data[low][0]]
+        new_values = [data.data[low][0]]
+
+    return new_values

@@ -94,4 +94,3 @@ class Data:
     def draw_data(self):
         for i in range(len(self.data)):
             self.data[i][1].draw(self.window)
-
