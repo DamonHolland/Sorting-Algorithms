@@ -11,13 +11,13 @@ import BucketSort
 
 def main():
     #Data Settings
-    data_size = 256
+    data_size = 64
 
     #Visual Settings - Delay in ms
     show_visuals = True
     window_width = 1024
     window_height = 1024
-    swap_delay = 0
+    swap_delay = 50
     compare_delay = 0
     override_delay = 0
     access_delay = 0
@@ -31,7 +31,7 @@ def main():
     # 5 - Quick Sort
     # 6 - Merge Sort
     # 7 - Bucket Sort
-    algorithm_selection = 6
+    algorithm_selection = 3
 
     if algorithm_selection == 1:
         algorithm = BubbleSort
@@ -63,10 +63,6 @@ def main():
     algorithm.sort(data)
 
     print(algorithm.__name__ + " sorted data in " + str(time.time() - timer) + " seconds.")
-
-    if window != 0:
-        while window.isOpen():
-            window.getMouse()
 
 
 main()
