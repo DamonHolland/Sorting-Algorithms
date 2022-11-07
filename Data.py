@@ -3,7 +3,7 @@ from graphics import *
 
 
 class Data:
-    def __init__(self, size, window, swap_delay, compare_delay, override_delay, access_delay, show_visuals):
+    def __init__(self, size, window, swap_delay, compare_delay, override_delay, access_delay):
         self.window = window
         self.data = []
         self.swap_delay = swap_delay
@@ -11,22 +11,17 @@ class Data:
         self.override_delay = override_delay
         self.access_delay = access_delay
         self.size = size
-        self.show_visuals = show_visuals
         for i in range(size):
             value = i + 1
-            if show_visuals:
-                bl_x = i * (window.getWidth()/ size)
-                bl_y = window.getHeight()
-                tr_x = (i + 1) * (window.getWidth()/ size)
-                tr_y = window.getHeight() - ((i + 1) * (window.getWidth()/ size))
-                rect = Rectangle(Point(bl_x, bl_y), Point(tr_x, tr_y))
-                rect.setFill('white')
-                self.data.append([value, rect])
-            else:
-                self.data.append([value])
+            bl_x = i * (window.getWidth()/ size)
+            bl_y = window.getHeight()
+            tr_x = (i + 1) * (window.getWidth()/ size)
+            tr_y = window.getHeight() - ((i + 1) * (window.getWidth()/ size))
+            rect = Rectangle(Point(bl_x, bl_y), Point(tr_x, tr_y))
+            rect.setFill('white')
+            self.data.append([value, rect])
         self.shuffle(skip_delay=True)
-        if show_visuals:
-            self.draw_data()
+        self.draw_data()
 
     def shuffle(self, skip_delay=False):
         n = len(self.data) - 1
@@ -40,55 +35,47 @@ class Data:
         temp = self.data[m]
         self.data[m] = self.data[n]
         self.data[n] = temp
-        # Show Visual Change
-        if self.show_visuals:
-            swap_dx = self.data[m][1].getP1().x - self.data[n][1].getP1().x
-            num_transitions = 10
-            self.data[n][1].setFill('blue')
-            self.data[m][1].setFill('blue')
-            for i in range(num_transitions):
-                self.data[n][1].move(swap_dx / num_transitions, 0)
-                self.data[m][1].move(-swap_dx / num_transitions, 0)
-                if not skip_delay:
-                    time.sleep(self.swap_delay / 1000.0 / num_transitions)
-            self.data[n][1].setFill('white')
-            self.data[m][1].setFill('white')
+        swap_dx = self.data[m][1].getP1().x - self.data[n][1].getP1().x
+        num_transitions = 10
+        self.data[n][1].setFill('blue')
+        self.data[m][1].setFill('blue')
+        for i in range(num_transitions):
+            self.data[n][1].move(swap_dx / num_transitions, 0)
+            self.data[m][1].move(-swap_dx / num_transitions, 0)
+            if not skip_delay:
+                time.sleep(self.swap_delay / 1000.0 / num_transitions)
+        self.data[n][1].setFill('white')
+        self.data[m][1].setFill('white')
 
     def override(self, i, new_value):
-        if self.show_visuals:
-            self.data[i][1].setFill('red')
-            time.sleep(self.override_delay / 1000.0)
-            self.data[i][1].undraw()
-            bl_x = i * (self.window.getWidth() / self.size)
-            bl_y = self.window.getHeight()
-            tr_x = (i + 1) * (self.window.getWidth() / self.size)
-            tr_y = self.window.getHeight() - (new_value * (self.window.getWidth() / self.size))
-            rect = Rectangle(Point(bl_x, bl_y), Point(tr_x, tr_y))
-            rect.setFill('white')
-            self.data[i] = ([new_value + 1, rect])
-            self.data[i][1].draw(self.window)
-        else:
-            self.data[i] = ([new_value + 1])
+        self.data[i][1].setFill('red')
+        time.sleep(self.override_delay / 1000.0)
+        self.data[i][1].undraw()
+        bl_x = i * (self.window.getWidth() / self.size)
+        bl_y = self.window.getHeight()
+        tr_x = (i + 1) * (self.window.getWidth() / self.size)
+        tr_y = self.window.getHeight() - (new_value * (self.window.getWidth() / self.size))
+        rect = Rectangle(Point(bl_x, bl_y), Point(tr_x, tr_y))
+        rect.setFill('white')
+        self.data[i] = ([new_value + 1, rect])
+        self.data[i][1].draw(self.window)
 
     def compare(self, n, m):
         b_is_less = False
         if self.data[n][0] < self.data[m][0]:
             b_is_less = True
         # Show Visual Comparison
-        if self.show_visuals:
-            self.data[n][1].setFill('green')
-            self.data[m][1].setFill('green')
-            time.sleep(self.compare_delay / 1000.0)
-            self.data[n][1].setFill('white')
-            self.data[m][1].setFill('white')
+        self.data[n][1].setFill('green')
+        self.data[m][1].setFill('green')
+        time.sleep(self.compare_delay / 1000.0)
+        self.data[n][1].setFill('white')
+        self.data[m][1].setFill('white')
         return b_is_less
 
     def get_value(self, i):
-        # Show Visual Access
-        if self.show_visuals:
-            self.data[i][1].setFill('purple')
-            time.sleep(self.access_delay / 1000.0)
-            self.data[i][1].setFill('white')
+        self.data[i][1].setFill('purple')
+        time.sleep(self.access_delay / 1000.0)
+        self.data[i][1].setFill('white')
         return self.data[i][0]
 
     def draw_data(self):
